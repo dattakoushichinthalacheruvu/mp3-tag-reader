@@ -1,0 +1,28 @@
+#ifndef FILE_H
+#define FILE_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char id[3];
+    unsigned char version[2];
+    unsigned char flags;
+    unsigned char size[4];
+} ID3v2Header;
+
+typedef struct {
+    char frame_id[4];
+    unsigned char size[4];
+    unsigned char flags[2];
+} FrameHeader;
+
+void print_tag(const char* frame, const char* data, int size);
+int sync_to_int(unsigned char *b);
+void int_to_sync(int sz, unsigned char *b);
+int read_tags(FILE *fp);
+int edit_tag(const char *src, const char *dst, const char *frame_to_edit, const char *new_value);
+void usage();
+
+#endif
